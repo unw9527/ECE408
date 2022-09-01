@@ -1,2 +1,0 @@
-# ECE408
-ECE408 Fall 2022 MP
