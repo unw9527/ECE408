@@ -1,23 +1,21 @@
 
 ## Important Note
 
-If you have already checked out the repo before 8/29 8PM, you need to rerun `git pull` to make sure everything is up to date.
+If you have already checked out the repo before 9/2 8PM, you need to rerun `git pull` to make sure everything is up to date.
 
-To submit your code, you need to run `rai -p ./MP1 --submit MP1`. To check your submission history, run `rai history -p ./MP1` (last 20 enties) or `rai l-history -p ./MP1` (last 100 enties). 
+To submit your code, you need to run `rai -p ./MP2 --submit MP2`. To check your submission history, run `rai history -p ./MP2` (last 20 enties) or `rai l-history -p ./MP2` (last 100 enties). 
 
 ## Objective
 
-The purpose of this lab is for you to become familiar with using the CUDA API by implementing a simple vector addition kernel and its associated host code as shown in the lectures.
+The purpose of this lab is for you to practice with using the CUDA API by implementing a simple Matrix Multiply kernel and its associated host code as shown in the lectures.
 
 ## Prerequisites
 
 Before starting this lab, make sure that:
 
-* You have completed all week 1 lectures or videos
+* You have completed all week 2 lectures or videos
 
-* You have completed Lab0 (MP0)
-
-* Chapter 2 of the text book would also be helpful
+* You have completed Lab1 (MP1)
 
 ## Instruction
 
@@ -40,13 +38,15 @@ You should edit the code in `template.cu` to perform the following:
 Instructions about where to place each part of the code is
 demarcated by the `//@@` comment lines.
 
-You can test your code by running `rai -p ./MP1`. If your solution is 
+You can test your code by running `rai -p ./MP2`. If your solution is 
 correct, you should be able to see the following output for each of 
 the 10 test datasets:
 ```
 --------------
 Dataset  X
-The input length is XX
+The dimensions of A are X x X
+The dimensions of B are X x X
+...
 Solution is correct
 ```
 
