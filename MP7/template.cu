@@ -14,6 +14,16 @@ __global__ void spmvJDSKernel(float *out, int *matColStart, int *matCols,
                               int *matRowPerm, int *matRows,
                               float *matData, float *vec, int dim) {
   //@@ insert spmv kernel for jds format
+  int row = blockIdx.x * blockDim.x + threadIdx.x;
+  if (row < dim) {
+    float dot = 0;
+    unsigned int sec = 0;
+    while (sec < matRows[row]) {
+      dot += matData[matColStart[sec] + row] * vec[matCols[matColStart[sec] + row]];
+      sec++;
+    }
+    out[matRowPerm[row]] = dot;
+  }
 }
 
 static void spmvJDS(float *out, int *matColStart, int *matCols,
@@ -21,6 +31,11 @@ static void spmvJDS(float *out, int *matColStart, int *matCols,
                     float *vec, int dim) {
 
   //@@ invoke spmv kernel for jds format
+  dim3 dimGrid((dim + 256 - 1) / 256, 1, 1);
+  dim3 dimBlock(256, 1, 1);
+  spmvJDSKernel<<<dimGrid, dimBlock>>>(out, matColStart, matCols, matRowPerm,
+                                       matRows, matData, vec, dim);
+  cudaDeviceSynchronize();
 }
 
 int main(int argc, char **argv) {
