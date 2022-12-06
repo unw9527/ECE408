@@ -1,11 +1,3 @@
-/**
- * @file new-forward.cu
- * @author Kunle Li 
- * @brief This file contains the implementation that has the best performance
- * @version 0.1
- * @date 2022-12-01
- * 
- */
 #include <cmath>
 #include <iostream>
 #include "gpu-new-forward.h"
@@ -63,55 +55,11 @@ __global__ void conv_forward_kernel(float *output, const float *input, const flo
     if (h_out < Height_out && w_out < Width_out) {
         float sum = 0;
         for (int m_in = 0; m_in < Channel; m_in++) {
-            sum += in_4d(b_out, m_in, h_out + 0, w_out + 0) * mask_4d(m_out, m_in, 0, 0)
-            + in_4d(b_out, m_in, h_out + 0, w_out + 1) * mask_4d(m_out, m_in, 0, 1)
-            + in_4d(b_out, m_in, h_out + 0, w_out + 2) * mask_4d(m_out, m_in, 0, 2)
-            + in_4d(b_out, m_in, h_out + 0, w_out + 3) * mask_4d(m_out, m_in, 0, 3)
-            + in_4d(b_out, m_in, h_out + 0, w_out + 4) * mask_4d(m_out, m_in, 0, 4)
-            + in_4d(b_out, m_in, h_out + 0, w_out + 5) * mask_4d(m_out, m_in, 0, 5)
-            + in_4d(b_out, m_in, h_out + 0, w_out + 6) * mask_4d(m_out, m_in, 0, 6)
-            + in_4d(b_out, m_in, h_out + 1, w_out + 0) * mask_4d(m_out, m_in, 1, 0)
-            + in_4d(b_out, m_in, h_out + 1, w_out + 1) * mask_4d(m_out, m_in, 1, 1)
-            + in_4d(b_out, m_in, h_out + 1, w_out + 2) * mask_4d(m_out, m_in, 1, 2)
-            + in_4d(b_out, m_in, h_out + 1, w_out + 3) * mask_4d(m_out, m_in, 1, 3)
-            + in_4d(b_out, m_in, h_out + 1, w_out + 4) * mask_4d(m_out, m_in, 1, 4)
-            + in_4d(b_out, m_in, h_out + 1, w_out + 5) * mask_4d(m_out, m_in, 1, 5)
-            + in_4d(b_out, m_in, h_out + 1, w_out + 6) * mask_4d(m_out, m_in, 1, 6)
-            + in_4d(b_out, m_in, h_out + 2, w_out + 0) * mask_4d(m_out, m_in, 2, 0)
-            + in_4d(b_out, m_in, h_out + 2, w_out + 1) * mask_4d(m_out, m_in, 2, 1)
-            + in_4d(b_out, m_in, h_out + 2, w_out + 2) * mask_4d(m_out, m_in, 2, 2)
-            + in_4d(b_out, m_in, h_out + 2, w_out + 3) * mask_4d(m_out, m_in, 2, 3)
-            + in_4d(b_out, m_in, h_out + 2, w_out + 4) * mask_4d(m_out, m_in, 2, 4)
-            + in_4d(b_out, m_in, h_out + 2, w_out + 5) * mask_4d(m_out, m_in, 2, 5)
-            + in_4d(b_out, m_in, h_out + 2, w_out + 6) * mask_4d(m_out, m_in, 2, 6)
-            + in_4d(b_out, m_in, h_out + 3, w_out + 0) * mask_4d(m_out, m_in, 3, 0)
-            + in_4d(b_out, m_in, h_out + 3, w_out + 1) * mask_4d(m_out, m_in, 3, 1)
-            + in_4d(b_out, m_in, h_out + 3, w_out + 2) * mask_4d(m_out, m_in, 3, 2)
-            + in_4d(b_out, m_in, h_out + 3, w_out + 3) * mask_4d(m_out, m_in, 3, 3)
-            + in_4d(b_out, m_in, h_out + 3, w_out + 4) * mask_4d(m_out, m_in, 3, 4)
-            + in_4d(b_out, m_in, h_out + 3, w_out + 5) * mask_4d(m_out, m_in, 3, 5)
-            + in_4d(b_out, m_in, h_out + 3, w_out + 6) * mask_4d(m_out, m_in, 3, 6)
-            + in_4d(b_out, m_in, h_out + 4, w_out + 0) * mask_4d(m_out, m_in, 4, 0)
-            + in_4d(b_out, m_in, h_out + 4, w_out + 1) * mask_4d(m_out, m_in, 4, 1)
-            + in_4d(b_out, m_in, h_out + 4, w_out + 2) * mask_4d(m_out, m_in, 4, 2)
-            + in_4d(b_out, m_in, h_out + 4, w_out + 3) * mask_4d(m_out, m_in, 4, 3)
-            + in_4d(b_out, m_in, h_out + 4, w_out + 4) * mask_4d(m_out, m_in, 4, 4)
-            + in_4d(b_out, m_in, h_out + 4, w_out + 5) * mask_4d(m_out, m_in, 4, 5)
-            + in_4d(b_out, m_in, h_out + 4, w_out + 6) * mask_4d(m_out, m_in, 4, 6)
-            + in_4d(b_out, m_in, h_out + 5, w_out + 0) * mask_4d(m_out, m_in, 5, 0)
-            + in_4d(b_out, m_in, h_out + 5, w_out + 1) * mask_4d(m_out, m_in, 5, 1)
-            + in_4d(b_out, m_in, h_out + 5, w_out + 2) * mask_4d(m_out, m_in, 5, 2)
-            + in_4d(b_out, m_in, h_out + 5, w_out + 3) * mask_4d(m_out, m_in, 5, 3)
-            + in_4d(b_out, m_in, h_out + 5, w_out + 4) * mask_4d(m_out, m_in, 5, 4)
-            + in_4d(b_out, m_in, h_out + 5, w_out + 5) * mask_4d(m_out, m_in, 5, 5)
-            + in_4d(b_out, m_in, h_out + 5, w_out + 6) * mask_4d(m_out, m_in, 5, 6)
-            + in_4d(b_out, m_in, h_out + 6, w_out + 0) * mask_4d(m_out, m_in, 6, 0)
-            + in_4d(b_out, m_in, h_out + 6, w_out + 1) * mask_4d(m_out, m_in, 6, 1)
-            + in_4d(b_out, m_in, h_out + 6, w_out + 2) * mask_4d(m_out, m_in, 6, 2)
-            + in_4d(b_out, m_in, h_out + 6, w_out + 3) * mask_4d(m_out, m_in, 6, 3)
-            + in_4d(b_out, m_in, h_out + 6, w_out + 4) * mask_4d(m_out, m_in, 6, 4)
-            + in_4d(b_out, m_in, h_out + 6, w_out + 5) * mask_4d(m_out, m_in, 6, 5)
-            + in_4d(b_out, m_in, h_out + 6, w_out + 6) * mask_4d(m_out, m_in, 6, 6);
+            for (int h_in = 0; h_in < K; h_in++) {
+                for (int w_in = 0; w_in < K; w_in++) {
+                    sum += in_4d(b_out, m_in, h_in + h_out, w_in + w_out) * mask_4d(m_out, m_in, h_in, w_in);
+                }
+            }
         }
         out_4d(b_out, m_out, h_out, w_out) = sum;
     }
@@ -169,55 +117,11 @@ __global__ void conv_forward_kernel2(float *output, const float *input, const fl
     if (h_out < Height_out && w_out < Width_out) {
         float sum = 0;
         for (int m_in = 0; m_in < Channel; m_in++) {
-            sum += in_4d(b_out, m_in, h_out + 0, w_out + 0) * mask_4d(m_out, m_in, 0, 0)
-            + in_4d(b_out, m_in, h_out + 0, w_out + 1) * mask_4d(m_out, m_in, 0, 1)
-            + in_4d(b_out, m_in, h_out + 0, w_out + 2) * mask_4d(m_out, m_in, 0, 2)
-            + in_4d(b_out, m_in, h_out + 0, w_out + 3) * mask_4d(m_out, m_in, 0, 3)
-            + in_4d(b_out, m_in, h_out + 0, w_out + 4) * mask_4d(m_out, m_in, 0, 4)
-            + in_4d(b_out, m_in, h_out + 0, w_out + 5) * mask_4d(m_out, m_in, 0, 5)
-            + in_4d(b_out, m_in, h_out + 0, w_out + 6) * mask_4d(m_out, m_in, 0, 6)
-            + in_4d(b_out, m_in, h_out + 1, w_out + 0) * mask_4d(m_out, m_in, 1, 0)
-            + in_4d(b_out, m_in, h_out + 1, w_out + 1) * mask_4d(m_out, m_in, 1, 1)
-            + in_4d(b_out, m_in, h_out + 1, w_out + 2) * mask_4d(m_out, m_in, 1, 2)
-            + in_4d(b_out, m_in, h_out + 1, w_out + 3) * mask_4d(m_out, m_in, 1, 3)
-            + in_4d(b_out, m_in, h_out + 1, w_out + 4) * mask_4d(m_out, m_in, 1, 4)
-            + in_4d(b_out, m_in, h_out + 1, w_out + 5) * mask_4d(m_out, m_in, 1, 5)
-            + in_4d(b_out, m_in, h_out + 1, w_out + 6) * mask_4d(m_out, m_in, 1, 6)
-            + in_4d(b_out, m_in, h_out + 2, w_out + 0) * mask_4d(m_out, m_in, 2, 0)
-            + in_4d(b_out, m_in, h_out + 2, w_out + 1) * mask_4d(m_out, m_in, 2, 1)
-            + in_4d(b_out, m_in, h_out + 2, w_out + 2) * mask_4d(m_out, m_in, 2, 2)
-            + in_4d(b_out, m_in, h_out + 2, w_out + 3) * mask_4d(m_out, m_in, 2, 3)
-            + in_4d(b_out, m_in, h_out + 2, w_out + 4) * mask_4d(m_out, m_in, 2, 4)
-            + in_4d(b_out, m_in, h_out + 2, w_out + 5) * mask_4d(m_out, m_in, 2, 5)
-            + in_4d(b_out, m_in, h_out + 2, w_out + 6) * mask_4d(m_out, m_in, 2, 6)
-            + in_4d(b_out, m_in, h_out + 3, w_out + 0) * mask_4d(m_out, m_in, 3, 0)
-            + in_4d(b_out, m_in, h_out + 3, w_out + 1) * mask_4d(m_out, m_in, 3, 1)
-            + in_4d(b_out, m_in, h_out + 3, w_out + 2) * mask_4d(m_out, m_in, 3, 2)
-            + in_4d(b_out, m_in, h_out + 3, w_out + 3) * mask_4d(m_out, m_in, 3, 3)
-            + in_4d(b_out, m_in, h_out + 3, w_out + 4) * mask_4d(m_out, m_in, 3, 4)
-            + in_4d(b_out, m_in, h_out + 3, w_out + 5) * mask_4d(m_out, m_in, 3, 5)
-            + in_4d(b_out, m_in, h_out + 3, w_out + 6) * mask_4d(m_out, m_in, 3, 6)
-            + in_4d(b_out, m_in, h_out + 4, w_out + 0) * mask_4d(m_out, m_in, 4, 0)
-            + in_4d(b_out, m_in, h_out + 4, w_out + 1) * mask_4d(m_out, m_in, 4, 1)
-            + in_4d(b_out, m_in, h_out + 4, w_out + 2) * mask_4d(m_out, m_in, 4, 2)
-            + in_4d(b_out, m_in, h_out + 4, w_out + 3) * mask_4d(m_out, m_in, 4, 3)
-            + in_4d(b_out, m_in, h_out + 4, w_out + 4) * mask_4d(m_out, m_in, 4, 4)
-            + in_4d(b_out, m_in, h_out + 4, w_out + 5) * mask_4d(m_out, m_in, 4, 5)
-            + in_4d(b_out, m_in, h_out + 4, w_out + 6) * mask_4d(m_out, m_in, 4, 6)
-            + in_4d(b_out, m_in, h_out + 5, w_out + 0) * mask_4d(m_out, m_in, 5, 0)
-            + in_4d(b_out, m_in, h_out + 5, w_out + 1) * mask_4d(m_out, m_in, 5, 1)
-            + in_4d(b_out, m_in, h_out + 5, w_out + 2) * mask_4d(m_out, m_in, 5, 2)
-            + in_4d(b_out, m_in, h_out + 5, w_out + 3) * mask_4d(m_out, m_in, 5, 3)
-            + in_4d(b_out, m_in, h_out + 5, w_out + 4) * mask_4d(m_out, m_in, 5, 4)
-            + in_4d(b_out, m_in, h_out + 5, w_out + 5) * mask_4d(m_out, m_in, 5, 5)
-            + in_4d(b_out, m_in, h_out + 5, w_out + 6) * mask_4d(m_out, m_in, 5, 6)
-            + in_4d(b_out, m_in, h_out + 6, w_out + 0) * mask_4d(m_out, m_in, 6, 0)
-            + in_4d(b_out, m_in, h_out + 6, w_out + 1) * mask_4d(m_out, m_in, 6, 1)
-            + in_4d(b_out, m_in, h_out + 6, w_out + 2) * mask_4d(m_out, m_in, 6, 2)
-            + in_4d(b_out, m_in, h_out + 6, w_out + 3) * mask_4d(m_out, m_in, 6, 3)
-            + in_4d(b_out, m_in, h_out + 6, w_out + 4) * mask_4d(m_out, m_in, 6, 4)
-            + in_4d(b_out, m_in, h_out + 6, w_out + 5) * mask_4d(m_out, m_in, 6, 5)
-            + in_4d(b_out, m_in, h_out + 6, w_out + 6) * mask_4d(m_out, m_in, 6, 6);
+            for (int h_in = 0; h_in < K; h_in++) {
+                for (int w_in = 0; w_in < K; w_in++) {
+                    sum += in_4d(b_out, m_in, h_in + h_out, w_in + w_out) * mask_4d(m_out, m_in, h_in, w_in);
+                }
+            }
         }
         out_4d(b_out, m_out, h_out, w_out) = sum;
     }
