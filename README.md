@@ -1,3 +1,7 @@
+# Final Competition Ranking
+
+2nd/281. See [here](https://unw9527.github.io/about/images/ece408-ranking.png).
+
 # ECE408 Fall 2022
 
 Welcome to ECE408 / CS483 / CSE408 Fall 2022!
